@@ -7,7 +7,6 @@ with pdfplumber.open("bdo.pdf") as pdf:
     page_height = page.height
     page_width = page.width
 
-
     bbox = (0,272, page_width, 740)
     img = page.to_image()
     img.draw_rect(bbox)
@@ -28,7 +27,12 @@ with pdfplumber.open("bdo.pdf") as pdf:
     final_table = []
     for row in clean_table:
         description = " ".join(row[1:4]).strip()
-        new_row = [row[0], description, row[4], row[5], row[6]]
+
+        col4 = row[4].lstrip('P')
+        col5 = row[5].lstrip('P')
+        col6 = row[6].lstrip('P')
+
+        new_row = [row[0], description, col4, col5, col6]
         final_table.append(new_row)
 
     for i, r in enumerate(final_table, start=1):
